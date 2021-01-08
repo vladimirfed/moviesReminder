@@ -1,0 +1,16 @@
+.app-header {
+  align-items: flex-end;
+}
+
+.app-header h1 {
+  font-size: 3rem;
+  flex-grow: 1;
+  color: rgb(41, 149, 163);
+  font-family: -apple-system;
+
+}
+
+.app-header h2 {
+  font-size: 0.9rem;
+  color: rgb(108, 142, 146);
+}
