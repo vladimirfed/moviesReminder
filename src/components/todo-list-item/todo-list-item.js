@@ -8,33 +8,31 @@ export default class TodoListItem extends Component {
   state = {
     done: false,
     important: false,
+    status: false
   };
             // controle state of 'done' property
   onLabelClick = () => {
-    this.setState(({ done }) => {
-      return {
-        done: !done,
-      };
-    });
+    this.setState(({ done }) => { done: !done });
   };
             // controle state of 'important' property
   onMarkImportant = () => {
-    this.setState((state) => {
-      return {
-        important: !state.important,
-      };
-    });
+    this.setState(({important}) => {important: !important});
+  };
+
+  onChangeStatus = () => {
+    this.setState(({ status }) => { status: !status });
   };
 
         // render body of this class-component
   render() {
     const { label, onDeleted, 
-      onToggleImportant, onToggleDone,
-      done, important } = this.props;
+      onToggleImportant, onToggleDone, onChangeStatus,
+      done, important, status } = this.props;
     // const { done, important } = this.state;
 
             // swipe state of 'done' property 
     let classNames = "todo-list-item";
+
     if (done) {
       classNames += " done";
     }
@@ -44,12 +42,31 @@ export default class TodoListItem extends Component {
       classNames += " important";
     }
 
+    if (status) {
+      classNames += " status";
+    }
+
     return (
       <span className={classNames}>
-        <span className="todo-list-item-label" 
-              onClick={onToggleDone}>
+        <span className="todo-list-item-label" >
           {label}
         </span>
+
+        <button
+          type="button"
+          className="btn btn-outline-danger btn-sm float-right"
+          onClick={onDeleted}
+          >
+          <i className="fa fa-trash-o" aria-hidden="true" />
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-outline-dark btn-sm float-right"
+          onClick={(onChangeStatus)}
+        >
+          <i className=" fa fa-square" />
+        </button>
 
         <button
           type="button"
@@ -59,14 +76,15 @@ export default class TodoListItem extends Component {
           <i className="fa fa-exclamation" />
         </button>
 
+
         <button
           type="button"
-          className="btn btn-outline-danger btn-sm float-right"
-          onClick={onDeleted}
-          // onClick={onDeleted}
-          >
-          <i className="fa fa-trash-o" />
+          className="btn btn-outline-info btn-sm float-right"
+          onClick={onToggleDone}
+        >
+          <i className=" fa fa-check" />
         </button>
+
       </span>
     );
   }

@@ -5,6 +5,7 @@ import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
 import ItemAddForm from '../item-add-form'
+import TrashItem from '../trash-item'
 
 import './app.css';
 
@@ -95,6 +96,15 @@ export default class App extends Component {
   })
   }
 
+  onChangeStatus = (id) => {
+    // console.log(' done', id);
+    this.setState(({todoData})=>{
+
+      return{todoData: 
+        this.toggleProperty(todoData, id,'status')}
+  })
+  }
+
   onSearchChange = (term) =>{
     this.setState({term})
   }
@@ -151,14 +161,24 @@ export default class App extends Component {
           <ItemStatusFilter filter={filter}
           onFilterChange={this.onFilterChange} />
         </div> 
-  
-        <TodoList 
+        <div className="top-panel d-flex" >        
+          <TodoList 
           todos={visibleItems}
           onDeleted={this.deleteItem }
           onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.onToggleDone} />
+          onToggleDone={this.onToggleDone}
+          onChangeStatus={this.onChangeStatus} />
+
+          <TodoList 
+          todos={visibleItems}
+          onDeleted={this.deleteItem }
+          onToggleImportant={this.onToggleImportant}
+          onToggleDone={this.onToggleDone}
+          onChangeStatus={this.onChangeStatus} />
+        </div>
 
           <ItemAddForm  onItemAdded={this.addItem} />
+          <TrashItem />
       </div>
     );
   }

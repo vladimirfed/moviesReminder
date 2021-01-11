@@ -18,7 +18,14 @@
   text-decoration: line-through;
 }
 
+.todo-list-item.status .todo-list-item-label {
+  font-weight: italic;
+  color: rgb(196, 193, 193);
+}
+
 .todo-list-item.important .todo-list-item-label {
   font-weight: bold;
   color: steelblue;
 }
+
+
